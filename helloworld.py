@@ -1,6 +1,15 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+
+# allow your local Vite dev origin(s)
+CORS(app,
+     resources={r"/*": {"origins": [
+         "http://localhost:5173",
+         "http://127.0.0.1:5173"
+     ]}},
+     supports_credentials=True)  # set to True only if you send cookies/auth
 
 @app.route("/")
 def home():
@@ -32,5 +41,4 @@ def predict():
 
 
 if __name__ == "__main__":
-    print(">>> Starting Flask API on http://127.0.0.1:5000")
     app.run(debug=True)

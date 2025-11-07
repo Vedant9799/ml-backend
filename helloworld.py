@@ -10,7 +10,7 @@ CORS(app,
          "http://127.0.0.1:5173",
          "https://spoofygoofy.xyz"
      ]}},
-     supports_credentials=True)  # set to True only if you send cookies/auth
+     supports_credentials=False)  # set to True only if you send cookies/auth
 
 @app.route("/")
 def home():

@@ -1,5 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import joblib
+import pandas as pd
+import numpy as np
 
 app = Flask(__name__)
 
@@ -15,6 +18,27 @@ CORS(app,
 @app.route("/")
 def home():
     return "Welcome to the ML API!"
+
+# Load your pipeline (preprocessor + model)
+pipeline = joblib.load("claims_amount_pipeline.pkl")
+
+@app.route("/predict/claim_amount", methods=["POST"])
+def predict_claims():
+    try:
+        data = request.get_json()
+
+        # Convert request JSON to DataFrame
+        df = pd.DataFrame([data])
+
+        # Predict
+        pred = pipeline.predict(df)[0]
+
+        return jsonify({
+            "predicted_claim_amount": float(pred)
+        })
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
 
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -43,3 +67,5 @@ def predict():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+

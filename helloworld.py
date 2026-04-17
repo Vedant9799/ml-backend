@@ -12,7 +12,7 @@ CORS(app,
          "http://localhost:5173",
          "http://127.0.0.1:5173",
          "https://spoofygoofy.xyz",
-         "https://fancy-cactus-e1c04e.netlify.app/"
+         "https://fancy-cactus-e1c04e.netlify.app"
      ]}},
      supports_credentials=False)  # set to True only if you send cookies/auth
 
